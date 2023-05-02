@@ -1,0 +1,11 @@
+ADMIN
+cliente: ng serve --port 3000
+servidor: npm run dev
+
+COMPRAS
+cliente: ng serve --port 3001
+servidor: npm run dev
+
+USUARIOS
+cliente: ng serve --port 3002
+servidor: npm run dev

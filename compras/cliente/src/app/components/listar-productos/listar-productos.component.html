@@ -1,0 +1,175 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-10 offset-lg-1">
+      <div class="card">
+        <div class="card-body text-center">
+          <span class="titulo">Listado de productos</span>
+          <div class="mb-3">
+            <input
+              type="text"
+              formControlName="filtraNombre"
+              #idComprador
+              class="form-control mt-1"
+              placeholder="ID del comprador"
+            />
+            <button
+              (click)="filtrarCompra(idComprador.value)"
+              class="mt-1 btn btn-secondary float-start mb-3"
+            >
+              Buscar compras
+            </button>
+          </div>
+          <div class="mb-3">
+            <input
+              type="text"
+              formControlName="filtrarForm"
+              #filtroIDcomprador
+              class="form-control mt-1"
+              placeholder="ID comprador"
+            />
+            <input
+              type="text"
+              formControlName="filtrarForm"
+              #filtroIDarticulo
+              class="form-control mt-1"
+              placeholder="ID artículo"
+            />
+            <input
+              type="text"
+              formControlName="filtrarForm"
+              #filtroNombre
+              class="form-control mt-1"
+              placeholder="Nombre"
+            />
+            <button
+              (click)="filtrarProductos(filtroIDarticulo.value, filtroNombre.value,filtroIDcomprador.value)"
+              class="mt-1 btn btn-secondary float-start"
+            >
+              Buscar productos
+            </button>
+          </div>
+          <table
+            *ngIf="listProductos.length > 0"
+            class="table table-striped mt-3"
+          >
+            <thead>
+              <tr>
+                <th scope="col">Producto</th>
+                <th scope="col">ID</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Flores</th>
+                <th scope="col">Frutal</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Cantidad deseada</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let producto of listProductos">
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto._id }}</td>
+                <td>{{ producto.tipo }}</td>
+                <td>{{ producto.flores }}</td>
+                <td>{{ producto.frutal }}</td>
+                <td>{{ producto.cantidad }}</td>
+                <td>{{ producto.precio | currency : "EUR" }}</td>
+                <td>
+                  <!--<input
+                  type="text"
+                  class="form-control form-control-lg"
+                  #IDcliente
+                  placeholder="ID cliente"
+                  />-->
+                  <input
+                  type="text"
+                  class="form-control form-control-lg mb-1"
+                  #nombreCliente
+                  placeholder="Nombre cliente"
+                  />
+                  <input
+                  type="text"
+                  class="form-control form-control-lg mb-1"
+                  #direccion
+                  placeholder="Dirección"
+                  />
+                  Cantidad:
+                  <input
+                    type="number"
+                    class="col-lg-5 mb-2"
+                    min="1"
+                    [defaultValue]="1"
+                    [max]="producto?.cantidad || ''"
+                    step="1"
+                    #cantidadDeseada
+                  />
+                  <button (click)="agregarCompra(producto._id, idComprador.value, cantidadDeseada.value, nombreCliente.value, direccion.value)"class="btn btn-success float-end">Comprar</button>
+                  <!--<button
+                    [routerLink]="[
+                      '/crear-compra',
+                      producto._id,
+                      producto.cantidad
+                    ]"
+                    class="btn btn-success float-end"
+                  >
+                    Comprar
+                  </button>-->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <span class="titulo mt-5">Listado de compras</span>
+          <table class="table table-striped mt-3">
+            <thead>
+              <tr>
+                <th scope="col">ID compra</th>
+                <th scope="col">ID artículo</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Dirección</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let compra of listCompras">
+                <td>{{ compra._id }}</td>
+                <td>{{ compra.IDarticulo }}</td>
+                <td>{{ compra.nombreComprador }}</td>
+                <td>{{ compra.direccion }}</td>
+                <td>{{ compra.cantidad }}</td>
+                <td>
+                  <i
+                    [routerLink]="[
+                      '/editar-compra',
+                      compra.IDarticulo,
+                      compra._id
+                    ]"
+                    class="fas fa-solid fa-edit text-primary"
+                  ></i>
+                  <i
+                    (click)="eliminarCompra(compra._id, compra.cantidad, compra.IDarticulo)"
+                    class="fas fa-solid fa-trash text-danger"
+                  ></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h5
+            style="text-align: start; margin-top: 10px"
+            *ngIf="listProductos.length == 0"
+          >
+            No hay productos para mostar
+          </h5>
+          <h5
+            style="text-align: start; margin-top: 10px"
+            *ngIf="listCompras.length == 0"
+          >
+            No hay compras para mostar / Introduce nombre de comprador
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

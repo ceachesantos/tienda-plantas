@@ -1,0 +1,68 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-10 offset-lg-1">
+      <div class="card">
+        <div class="card-body text-center">
+          <span class="titulo">Listado de usuarios</span>
+          <div class="mb-3">
+            <select formControlName="rol" #usuarioNuevo class="form-control mt-1">
+              <option value="cliente">Cliente</option>
+              <option value="administrador">Administrador</option>
+            </select>
+            <button
+              (click)="agregarUsuario(usuarioNuevo.value)"
+              class="mt-1 btn btn-secondary float-start mb-3"
+            >
+              Crear usuario
+            </button>
+            <input
+              type="text"
+              formControlName="inputUsuario"
+              #idUsuario
+              class="form-control mt-1"
+              placeholder="ID de usuario"
+            />
+            <button
+              (click)="eliminarUsuario(idUsuario.value)"
+              class="mt-1 btn btn-danger float-start mb-3"
+            >
+              Eliminar usuario
+            </button>
+            <button
+              (click)="obtenerUsuarios(idUsuario.value)"
+              class="mt-1 btn btn-secondary float-start mb-3"
+            >
+              Ver usuarios (administrador)
+            </button>
+          </div>
+
+          <table
+            *ngIf="listUsuarios.length > 0"
+            class="table table-striped mt-3"
+          >
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Rol</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let usuario of listUsuarios">
+                <td>{{ usuario._id }}</td>
+                <td>{{ usuario.rol }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!--<h5
+            style="text-align: start; margin-top: 10px"
+            *ngIf="listUsuarios.length == 0"
+          >
+            No hay usuarios para mostar
+          </h5>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

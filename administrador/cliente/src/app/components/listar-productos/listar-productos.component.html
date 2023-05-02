@@ -1,0 +1,54 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-10 offset-lg-1">
+      <div class="card">
+        <div class="card-body text-center">
+          <span class="titulo">Listado de productos</span>
+          <!-- peta el navegador<button *ngIf="esAdministrador(filtroIDusuario.value)" class="btn btn-success float-end" routerLink="/crear-producto">Nuevo</button>-->
+          <button *ngIf="adminBotonNuevo"class="btn btn-success float-end" routerLink="/crear-producto">Nuevo</button>
+
+          <div class="mb-3">
+            <input type="text" formControlName="filtrarForm" #filtroIDusuario
+              class="form-control mt-1" placeholder="ID de usuario">
+            <input type="text" formControlName="filtrarForm" #filtroID
+              class="form-control mt-1" placeholder="ID">
+            <input type="text" formControlName="filtrarForm" #filtroNombre
+              class="form-control mt-1" placeholder="Nombre">
+            <button (click)="filtrarProductos(filtroID.value, filtroNombre.value, filtroIDusuario.value)" class=" mt-1 btn btn-secondary float-start">Buscar / Verificar admin</button>
+          </div>
+          <p>Introduce la ID de usuario para buscar (todos o filtrando)</p>
+          <table *ngIf="listProductos.length > 0" class="table table-striped mt-3">
+            <thead>
+              <tr>
+                <th scope="col">Producto</th>
+                <th scope="col">ID</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Flores</th>
+                <th scope="col">Frutal</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let producto of listProductos">
+                <td>{{producto.nombre}}</td>
+                <td>{{producto._id}}</td>
+                <td>{{producto.tipo}}</td>
+                <td>{{producto.flores}}</td>
+                <td>{{producto.frutal}}</td>
+                <td>{{producto.cantidad}}</td>
+                <td>{{producto.precio | currency: 'EUR'}}</td>
+                <td>
+                  <i [routerLink]="['/editar-producto', producto._id]" class="fas fa-solid fa-edit text-primary"></i>
+                  <i (click)="eliminarProducto(producto._id)" class="fas fa-solid fa-trash text-danger"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <h5 style="text-align: start; margin-top: 10px;" *ngIf="listProductos.length == 0">No hay productos para mostar</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
